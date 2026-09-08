@@ -36,8 +36,9 @@ async def get_transacciones(request: Request) -> Any:
     # Validación del contrato HTTP y mapeo de errores de negocio
     params = dict(request.query_params)
     try:
-        qp = HistorialQueryParams(**params)
+        qp = HistorialQueryParams.model_validate(params)
     except ValidationError as e:
+
         for err in e.errors():
             msg = err.get("msg", "")
             if "El rango excede el máximo permitido (90 días)" in msg:

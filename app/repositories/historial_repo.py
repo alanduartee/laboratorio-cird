@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import date
+from typing import Any
 
 
 class HistorialRepo:
@@ -12,7 +13,8 @@ class HistorialRepo:
 
     def __init__(self) -> None:
         # Fixed sample data (5 transactions)
-        self._data = [
+        self._data: list[dict[str, Any]] = [
+
             {
                 "id": "tx1",
                 "fecha": date(2026, 5, 12),
@@ -50,13 +52,17 @@ class HistorialRepo:
             },
         ]
 
-    def list_all(self) -> list[dict]:
+    def list_all(self) -> list[dict[str, Any]]:
         return list(self._data)
 
-    def query_by_date_range(self, desde: date, hasta: date) -> list[dict]:
-        return [t for t in self._data if desde <= t["fecha"] <= hasta]
+    def query_by_date_range(self, desde: date, hasta: date) -> list[dict[str, Any]]:
+        return [
+            t for t in self._data
+            if isinstance(t.get("fecha"), date) and desde <= t["fecha"] <= hasta
+        ]
 
-    def filter(self, desde: date, hasta: date, estado: str | None = None) -> list[dict]:
+    def filter(self, desde: date, hasta: date, estado: str | None = None) -> list[dict[str, Any]]:
+
         items = self.query_by_date_range(desde, hasta)
         if estado:
             items = [t for t in items if t.get("estado") == estado]

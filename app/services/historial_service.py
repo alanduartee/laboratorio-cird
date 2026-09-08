@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import binascii
 from datetime import date
 from typing import Any
 
@@ -26,8 +27,9 @@ class HistorialService:
         try:
             raw = base64.urlsafe_b64decode(cursor.encode()).decode()
             return int(raw)
-        except (ValueError, Exception):
+        except (ValueError, binascii.Error, UnicodeDecodeError):
             return 0
+
 
     def get_historial(self, qp) -> dict[str, Any]:
         """Aplica las reglas de negocio de historial, filtros, enmascaramiento y paginación con cursor."""

@@ -46,7 +46,7 @@ Los comercios requieren visualizar y filtrar las operaciones procesadas en su cu
 
 ### Reglas de Negocio Validadas
 - **RN-01 (Límite Temporal 90 días):** La API rechazará o limitará automáticamente cualquier consulta cuyo rango de fechas supere los 90 días de antigüedad respecto a la fecha actual.
-- **RN-02 (Privacidad de Tarjeta PCI):** Queda prohibida la exposición del PAN completo (Número de Tarjeta) y datos de autenticación (CVV/PIN). Solo se retornará el atributo `masked_pan` (ej. `**** **** **** 1234`).
+- **RN-02 (Privacidad de Tarjeta PCI):** Queda prohibida la exposición del PAN completo (Número de Tarjeta) y datos de autenticación (CVV/PIN). Solo se retornará el atributo `masked_pan` (solo últimos 4 dígitos, ej. `**** **** **** 1234`).
 - **RN-03 (Paginación Obligatoria):** Toda respuesta de lista de transacciones debe incluir parámetros de paginación (`page`, `page_size`, `total_records`, `total_pages`).
 - **RN-04 (Aislamiento por Comercio):** Un comercio autorizado solo puede consultar transacciones asociadas a su propio `id_comercio`.
 
